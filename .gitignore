@@ -1,0 +1,6 @@
+.env
+*.pyc
+*.tar.gz
+.cache
+__pycache__*
+Pipfile
