@@ -6,6 +6,8 @@ from utils import *
 from threading import Thread
 from recordproducer import *
 from watcher import *
+from itertools import  islice
+
 class worker(Thread):
     def __init__(self,arrivedfilesqueue:list , producer:RecordProducer , worker_id:int) -> None:
         Thread.__init__(self)
@@ -24,30 +26,24 @@ class worker(Thread):
     
     def get_file_path(self):
         file_path = self.arrivedfilesqueue.get()
-        time.sleep(6)
-        self.arrivedfilesqueue.task_done()
+        time.sleep(3)
         return file_path
     
     
     def process_file(self,file_path:str):
         with open(file_path , 'r' , newline='') as csv_file:
             csv_reader = csv.reader(csv_file)
-            next(csv_reader)
             for line in csv_reader:
-                record = Parser.parse_csv_line(line=line,record_time=datetime.datetime.now().strftime('%Y-%m-%d'))
+                if line[0] == 'IPV4_SRC_ADDR':
+                    continue
+                record = Parser.parse_csv_line(line=line,record_time=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                 self.producer.send_record(record)
     
     def delete_file(self, file_path):
-        os.remove(file_path)    
-    
+        os.remove(file_path)
+        self.arrivedfilesqueue.task_done()
+
     def deactivate(self):
         self.is_active= False
         
 
-if __name__ == '__main__':
-    queue = Queue()
-    w = Watcher(directory_path='/home/alisha/Desktop/',arrived_files_queue=queue)
-    w.start()
-    
-    s = worker(arrivedfilesqueue=queue , producer=RecordProducer(bootstrapservers="127.0.0.1:9092", topic="test") , worker_id=100)
-    s.start()
