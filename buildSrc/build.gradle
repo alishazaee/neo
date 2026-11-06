@@ -1,0 +1,19 @@
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+repositories {
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+dependencies {
+    implementation 'org.jooq:jooq-codegen:3.19.8'
+    implementation 'org.flywaydb:flyway-database-postgresql:10.10.0'
+    implementation 'org.liquibase:liquibase-core:4.29.1'
+    implementation 'io.github.infocusmodereal:liquibase-starrocks:0.3.0'
+    implementation 'org.testcontainers:postgresql:1.21.4'
+    implementation 'com.mysql:mysql-connector-j:8.4.0'
+    runtimeOnly 'org.postgresql:postgresql:42.7.3'
+    implementation 'com.google.cloud.tools:jib-gradle-plugin:3.4.5'
+}

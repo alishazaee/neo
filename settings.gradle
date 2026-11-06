@@ -1,0 +1,28 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+
+    plugins {
+        id "com.google.protobuf" version "0.9.4"
+        id("org.springframework.boot") version "3.3.1"
+    }
+}
+
+rootProject.name = 'neo'
+
+def excluded = ["buildSrc", "build", ".gradle", ".idea"]
+
+rootDir.eachDirRecurse { dir ->
+    if (excluded.contains(dir.name)) return
+
+    if (new File(dir, "build.gradle").exists() ||
+            new File(dir, "build.gradle.kts").exists()) {
+
+        def relPath = rootDir.toPath().relativize(dir.toPath()).toString()
+        def projectPath = ":" + relPath.replace(File.separator, ":")
+
+        include(projectPath)
+    }
+}

@@ -1,0 +1,25 @@
+server:
+  port: ${ASYNC_JOBS_REST_PORT:8080}
+
+spring:
+  application:
+    name: async-jobs-rest
+  datasource:
+    url: ${POSTGRES_JDBC_URL:jdbc:postgresql://localhost:5432/neo}
+    username: ${POSTGRES_USER:neo}
+    password: ${POSTGRES_PASSWORD:neo}
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    locations: classpath:db/migrations
+  jooq:
+    sql-dialect: postgres
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+async-jobs:
+  max-allowed-open-jobs-count: ${MAX_ALLOWED_OPEN_JOBS_COUNT:10}

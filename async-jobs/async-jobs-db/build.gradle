@@ -1,0 +1,13 @@
+plugins {
+    id 'java-conventions'
+    id 'java-library'
+    id 'postgres-jooq-codegen'
+}
+
+ext {
+    jooqPackageName = 'ir.neo.asyncjobs.db'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs.add('-Xlint:-processing')
+}

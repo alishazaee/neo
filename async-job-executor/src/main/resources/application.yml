@@ -1,0 +1,19 @@
+jobType: REGIONAL_TRAVELS
+maxAttempts: 3
+geohashesPerBatch: 100
+queryThreadCount: 4
+writerThreadCount: 2
+retryDelayMillis: 100
+pollIntervalMillis: 1000
+
+postgres:
+  jdbcUrl: jdbc:postgresql://localhost:5432/neo
+  username: postgres
+  password: postgres
+  maximumPoolSize: 4
+
+starRocks:
+  jdbcUrl: jdbc:mysql://localhost:9030/travel_cube
+  username: root
+  password: ""
+  maximumPoolSize: 8

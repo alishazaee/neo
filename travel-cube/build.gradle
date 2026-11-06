@@ -1,0 +1,14 @@
+plugins {
+    id 'java-conventions'
+    id 'java-library'
+    id 'starrocks-jooq-codegen'
+}
+
+ext {
+    jooqPackageName = 'ir.neo.travelcube.db'
+    jooqDatabaseName = 'travel_cube'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs.add('-Xlint:-processing')
+}

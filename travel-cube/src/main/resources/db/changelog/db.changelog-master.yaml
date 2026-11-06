@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-travel-cube
+      author: neo
+      changes:
+        - sqlFile:
+            path: V1__create_travel_cube.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            endDelimiter: ";"

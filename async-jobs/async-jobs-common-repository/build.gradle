@@ -1,0 +1,9 @@
+plugins {
+    id 'java-conventions'
+    id 'java-library'
+}
+
+dependencies {
+    api project(':async-jobs:async-jobs-db')
+    api project(':async-jobs:model')
+}

@@ -1,0 +1,27 @@
+plugins {
+    id 'java-conventions'
+    id 'java-library'
+    id 'junit5-conventions'
+    id 'application'
+}
+
+application {
+    mainClass = 'ir.neo.asyncjobexecutor.Runner'
+}
+
+dependencies {
+    implementation project(':async-jobs:model')
+    implementation project(':async-jobs:async-jobs-common-repository')
+    implementation project(':common-lib:geohash-cover')
+    implementation project(':travel-cube')
+
+    implementation libs.jackson.databind
+    implementation libs.guava
+    implementation libs.hikariCP
+    implementation libs.snakeyaml
+
+    runtimeOnly libs.mysql
+    runtimeOnly libs.postgresql
+
+    testImplementation project(':common-lib:test-extensions')
+}
